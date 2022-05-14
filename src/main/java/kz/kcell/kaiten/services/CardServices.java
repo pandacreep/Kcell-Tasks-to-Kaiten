@@ -40,12 +40,14 @@ public class CardServices {
     }
 
     private Map<String, Object> getCardFields(CardAddDto cardDto) {
+        String codeString = cardDto.getCustomerCode();
+        codeString = codeString.replace(",", "");
+        codeString = codeString.replace(".", "");
+
         Map<String, Object> map= new HashMap<>();
-
         Map<String, Integer[]> properties = new HashMap<>();
-        properties.put("id_23280", new Integer[] {15795});
+        properties.put("id_23280", new Integer[] {Integer.valueOf(codeString)});
         map.put("properties", properties);
-
         map.put("title", cardDto.getTitle());
         map.put("board_id", String.valueOf(Param.BOARD_ID));
         map.put("column_id", String.valueOf(Param.COLUMN_ID));
@@ -57,7 +59,7 @@ public class CardServices {
 
     private String createDescription(CardAddDto card) {
         String description;
-        description = "Заказчик:\n" + card.getCustomerName();
+        description = "**Заказчик:**\n" + card.getCustomerName();
         description += getSubDescription(card.getDescription(), "Описание:");
         description += getSubDescription(card.getDescriptionExpectedResult(), "Ожидание на выходе:");
         description += getSubDescription(card.getDescriptionInputData(), "Есть данные:");
@@ -72,6 +74,6 @@ public class CardServices {
         if (text.isBlank()) {
             return "";
         }
-        return "\n\n" + subtitle + "\n" + text;
+        return "\n\n**" + subtitle + "**\n" + text;
     }
 }

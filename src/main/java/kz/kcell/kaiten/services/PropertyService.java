@@ -25,7 +25,7 @@ public class PropertyService {
         ResponseEntity<List<PropertySelectValueDto>> response = restTemplate.exchange(
                 URL, HttpMethod.GET, entity,
                 new ParameterizedTypeReference<List<PropertySelectValueDto>>() {});
-        var card = response.getBody();
-        return card;
+        var selectedValues = response.getBody();
+        return selectedValues;
     }
 }

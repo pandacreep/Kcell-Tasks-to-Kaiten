@@ -44,7 +44,12 @@
                     <span class="label-input-text">Код заказчика <span class="required">(обязательно)</span></span>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="customerCode" style="width: 100%">
+                    <select name="customerCode">
+                        <option hidden value="">Выберите код закачика</option>
+                        <#list selectedValues as value>
+                            <option value="${value.id}">${value.value}</option>
+                        </#list>
+                    </select>
                 </div>
             </div>
             <div class="row mt-2">
