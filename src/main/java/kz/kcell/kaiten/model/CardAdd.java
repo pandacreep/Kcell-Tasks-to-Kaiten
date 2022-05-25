@@ -1,6 +1,5 @@
 package kz.kcell.kaiten.model;
 
-import kz.kcell.kaiten.dto.CardAddDto;
 import lombok.*;
 
 import java.io.Serializable;
@@ -30,27 +29,4 @@ public class CardAdd implements Serializable {
     private int type_id;
     private int external_id;
     private int text_format_type_id;
-
-//    public static CardAdd from(CardAddDto card) {
-//        return CardAdd.builder()
-//                .title(card.getTitle())
-//                .asap(false)
-//                .due_date(null)
-//                .due_date_time_present(false)
-//                .sort_order(1)
-//                .description(card.getDescription())
-//                .expires_later(false)
-//                .size_text(null)
-//                .board_id(96925)
-//                .column_id(331685)
-//                .lane_id(170116)
-//                .owner_id(167587)
-//                .responsible_id(null)
-//                .owner_email("test email")
-//                .position(1)
-//                .type_id(1)
-//                .external_id(1)
-//                .text_format_type_id(1)
-//                .build();
-//    }
 }

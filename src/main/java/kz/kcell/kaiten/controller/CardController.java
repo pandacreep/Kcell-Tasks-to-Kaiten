@@ -25,36 +25,43 @@ public class CardController {
     private final PropertyService propertyService;
 
     @GetMapping("/0")
-    public String showTestCard(Model model) {
+    public String showTestCard(Model model) throws Exception {
         CardRetriveDto card = cardServices.getCardById(3143856);
         model.addAttribute("card", card);
         return "card";
     }
 
     @GetMapping("/{id}")
-    public String showCardById(@PathVariable int id, Model model) {
+    public String showCardById(@PathVariable int id, Model model) throws Exception {
         CardRetriveDto card = cardServices.getCardById(id);
         model.addAttribute("card", card);
         return "card";
     }
 
+    @GetMapping("/add-success/{id}")
+    public String showSuccessPage(@PathVariable int id, Model model) throws Exception {
+        CardRetriveDto card = cardServices.getCardById(id);
+        model.addAttribute("card", card);
+        return "card-add-success";
+    }
+
     @GetMapping("/add")
-    public String showAddCardPage(Model model) {
+    public String showAddCardPage(Model model) throws Exception {
         List<PropertySelectValueDto> selectedValues = propertyService.getSelectedValues(Param.CUSTOM_PROPERTY_ID);
         model.addAttribute("selectedValues", selectedValues);
-        return "card_add";
+        return "card-add";
     }
 
     @PostMapping("/add")
     public String add(@Valid CardAddDto card,
                       BindingResult validationResult,
-                      RedirectAttributes attributes) {
+                      RedirectAttributes attributes) throws Exception {
         attributes.addFlashAttribute("card", card);
         if (validationResult.hasErrors()) {
             attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
             return "redirect:/cards/add";
         }
         CardRetrive cardCreated = cardServices.add(card);
-        return "redirect:/cards/" + cardCreated.getId();
+        return "redirect:/cards/add-success/" + cardCreated.getId();
     }
 }

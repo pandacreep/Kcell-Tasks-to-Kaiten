@@ -5,6 +5,7 @@ import kz.kcell.kaiten.dto.CardAddDto;
 import kz.kcell.kaiten.dto.CardRetriveDto;
 import kz.kcell.kaiten.model.CardRetrive;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,23 +18,21 @@ import java.util.Map;
 public class CardServices {
     private final HeaderService headerService;
 
-    public CardRetriveDto getCardById(int id) {
+    public CardRetriveDto getCardById(int id) throws Exception {
         final String URL = Param.URL_CARDS + id;
         HttpHeaders headers = headerService.getHeaders();
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplateBuilder(new ProxyCustomizer()).build();
         ResponseEntity<CardRetrive> response = restTemplate.exchange(URL, HttpMethod.GET, entity, CardRetrive.class);
-        HttpStatus status = response.getStatusCode();
         CardRetrive card = response.getBody();
         return CardRetriveDto.from(card);
     }
 
-    public CardRetrive add(CardAddDto cardDto) {
+    public CardRetrive add(CardAddDto cardDto) throws Exception {
         HttpHeaders headers = headerService.getHeaders();
         Map<String, Object> map = getCardFields(cardDto);
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(map, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplateBuilder(new ProxyCustomizer()).build();
         ResponseEntity<CardRetrive> response = restTemplate.exchange(Param.URL_CARDS, HttpMethod.POST, request, CardRetrive.class);
         HttpStatus status = response.getStatusCode();
         return response.getBody();
@@ -44,9 +43,9 @@ public class CardServices {
         codeString = codeString.replace(",", "");
         codeString = codeString.replace(".", "");
 
-        Map<String, Object> map= new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         Map<String, Integer[]> properties = new HashMap<>();
-        properties.put("id_23280", new Integer[] {Integer.valueOf(codeString)});
+        properties.put("id_23280", new Integer[]{Integer.valueOf(codeString)});
         map.put("properties", properties);
         map.put("title", cardDto.getTitle());
         map.put("board_id", String.valueOf(Param.BOARD_ID));

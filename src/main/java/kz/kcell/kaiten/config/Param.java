@@ -1,10 +1,12 @@
 package kz.kcell.kaiten.config;
 
 public class Param {
-    static public String SITE = "https://pmkcell.kaiten.io/api/latest/";
+    static public String SITE = "https://pmkcell.kaiten.ru/api/latest/";
     static public String URL_CARDS = SITE + "cards/";
     static public String URL_PROPERTIES_SELECT_VALUES = SITE + "company/custom-properties/";
     static public String TOKEN = "Bearer ...";
+    static public String PROXY_HOST = "proxy001";
+    static public int PROXY_PORT = 8080;
 
     //Big Data Upstream
     static public int BOARD_ID = 103348;

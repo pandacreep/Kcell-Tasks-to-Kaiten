@@ -44,9 +44,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="/cards/add">Добавить карточку</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/cards/0">Тестовый показ карточки</a>
-                        </li>
+<#--                        <li class="nav-item">-->
+<#--                            <a class="nav-link active" href="/cards/0">Тестовый показ карточки</a>-->
+<#--                        </li>-->
                     </ul>
                 </div>
             </div>
